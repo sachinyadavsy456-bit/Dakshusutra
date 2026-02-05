@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dakshsutra Login & Register</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+.container{
+    width: 40%;
+    margin: auto;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+input{
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+}
+button{
+    padding: 10px 20px;
+    background: cyan;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.quizBox{
+    display: none;
+}
+.question{
+    text-align: left;
+    margin: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Dakshsutra Portal</h1>
+
+<div class="container" id="authBox">
+
+<h2>Register</h2>
+<input type="text" id="ruser" placeholder="Username"><br>
+<input type="password" id="rpass" placeholder="Password"><br>
+<button onclick="register()">Register</button>
+
+<h2>Login</h2>
+<input type="text" id="luser" placeholder="Username"><br>
+<input type="password" id="lpass" placeholder="Password"><br>
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+</div>
+
+
+<div class="container quizBox" id="quizBox">
+
+<h2>Dakshsutra GK Examination</h2>
+
+<form id="quizForm">
+
+<div class="question">
+1. Capital of India?<br>
+<input type="radio" name="q1" value="Delhi"> Delhi<br>
+<input type="radio" name="q1" value="Mumbai"> Mumbai
+</div>
+
+<div class="question">
+2. National Animal of India?<br>
+<input type="radio" name="q2" value="Tiger"> Tiger<br>
+<input type="radio" name="q2" value="Lion"> Lion
+</div>
+
+<div class="question">
+3. 5 + 5 = ?<br>
+<input type="radio" name="q3" value="10"> 10<br>
+<input type="radio" name="q3" value="12"> 12
+</div>
+
+<div class="question">
+4. Largest Planet?<br>
+<input type="radio" name="q4" value="Jupiter"> Jupiter<br>
+<input type="radio" name="q4" value="Mars"> Mars
+</div>
+
+<div class="question">
+5. Who wrote Ramayana?<br>
+<input type="radio" name="q5" value="Valmiki"> Valmiki<br>
+<input type="radio" name="q5" value="Tulsidas"> Tulsidas
+</div>
+
+<div class="question">
+6. National Bird of India?<br>
+<input type="radio" name="q6" value="Peacock"> Peacock<br>
+<input type="radio" name="q6" value="Parrot"> Parrot
+</div>
+
+<div class="question">
+7. 2 x 6 = ?<br>
+<input type="radio" name="q7" value="12"> 12<br>
+<input type="radio" name="q7" value="14"> 14
+</div>
+
+<div class="question">
+8. Which is a programming language?<br>
+<input type="radio" name="q8" value="Python"> Python<br>
+<input type="radio" name="q8" value="HTML"> HTML
+</div>
+
+<div class="question">
+9. Capital of USA?<br>
+<input type="radio" name="q9" value="Washington DC"> Washington DC<br>
+<input type="radio" name="q9" value="New York"> New York
+</div>
+
+<div class="question">
+10. Water formula?<br>
+<input type="radio" name="q10" value="H2O"> H2O<br>
+<input type="radio" name="q10" value="CO2"> CO2
+</div>
+
+</form>
+
+<button onclick="submitQuiz()">Submit Exam</button>
+
+<h3 id="result"></h3>
+
+</div>
+
+
+<script>
+
+function register(){
+    var u = document.getElementById("ruser").value;
+    var p = document.getElementById("rpass").value;
+
+    if(u=="" || p==""){
+        document.getElementById("msg").innerHTML="Fill all fields";
+        return;
+    }
+
+    localStorage.setItem("username",u);
+    localStorage.setItem("password",p);
+
+    document.getElementById("msg").innerHTML="Registration Successful!";
+}
+
+function login(){
+    var u = document.getElementById("luser").value;
+    var p = document.getElementById("lpass").value;
+
+    var su = localStorage.getItem("username");
+    var sp = localStorage.getItem("password");
+
+    if(u==su && p==sp){
+        document.getElementById("msg").innerHTML="Login Success!";
+        startExam();
+    }
+    else{
+        document.getElementById("msg").innerHTML="Invalid Login";
+    }
+}
+
+function startExam(){
+    document.getElementById("authBox").style.display="none";
+    document.getElementById("quizBox").style.display="block";
+}
+
+function submitQuiz(){
+
+var answers = {
+q1:"Delhi",
+q2:"Tiger",
+q3:"10",
+q4:"Jupiter",
+q5:"Valmiki",
+q6:"Peacock",
+q7:"12",
+q8:"Python",
+q9:"Washington DC",
+q10:"H2O"
+};
+
+var score = 0;
+
+for(var i=1;i<=10;i++){
+    var q = document.querySelector('input[name="q'+i+'"]:checked');
+
+    if(q){
+        if(q.value == answers["q"+i]){
+            score = score + 2;   // 2 marks each
+        }
+    }
+}
+
+document.getElementById("result").innerHTML=
+"Exam Submitted Successfully! <br>Your Score: " + score + " / 20 Marks";
+
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+          
+
+
+
